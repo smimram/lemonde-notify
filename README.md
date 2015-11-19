@@ -1,0 +1,1 @@
+Get notified each time there is a new item in LeMonde's live feed.
