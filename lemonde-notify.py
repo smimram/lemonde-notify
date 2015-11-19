@@ -26,6 +26,6 @@ while True:
         id = i['id']
         if id > lastid:
             lastid = id
-            Hello=Notify.Notification.new("Le Monde", i['titre_court'], "dialog-information")
+            Hello=Notify.Notification.new("Le Monde", i['titre_court']+".", "dialog-information")
             Hello.show()
     time.sleep(5*60)
