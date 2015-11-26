@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 import time
 import json
 import requests
@@ -18,14 +19,16 @@ while True:
         feed = requests.get(url).text
         feed = feed[5:-1]
         feed = json.loads(feed)
-    except requests.exceptions.RequestException as e:
-        print e
+    except Exception as e:
+        sys.stderr.write("Error: " + str(e) + "\n")
         feed = []
     for i in feed:
         i = i['data']
         id = i['id']
         if id > lastid:
             lastid = id
-            Hello=Notify.Notification.new("Le Monde", i['titre_court']+".", "dialog-information")
+            titre = i['titre_court']
+            if not titre.endswith('?'): titre += "."
+            Hello = Notify.Notification.new("Le Monde", titre, "dialog-information")
             Hello.show()
-    time.sleep(5*60)
+    time.sleep(60)
