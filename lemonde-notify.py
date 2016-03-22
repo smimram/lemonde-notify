@@ -34,7 +34,11 @@ class App():
             feed = []
         for i in feed:
             i = i['data']
-            id = i['id']
+            try:
+                id = i['id']
+            except Exception as e:
+                sys.stderr.write("Error: " + str(e) + "\n")
+                id = 0
             if id > self.lastid:
                 self.lastid = id
                 titre = i['titre_court']
@@ -42,7 +46,10 @@ class App():
                 if not titre.endswith('?'): titre += "."
                 self.notification = Notify.Notification.new("Le Monde", titre, "dialog-information")
                 self.notification.add_action("default", "Voir l'article...", self.notification_cb, link)
-                self.notification.show()
+                try:
+                    self.notification.show()
+                except Exception as e: # the show can timeout
+                    sys.stderr.write("Error: " + str(e) + "\n")
         GLib.timeout_add_seconds(60, self.check)
 
 app = App()
