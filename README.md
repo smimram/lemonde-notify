@@ -1,6 +1,6 @@
-Notifications for LeMonde.fr live feed
-======================================
+Notifications pour les actualités de LeMonde.fr
+===============================================
 
-This simple script checks the live feed of [lemonde.fr](http://www.lemonde.fr)
-and makes a notification for each new piece of information. It works well in
-Gnome but presumably other environments as well.
+Ce script affiche des notifications pour les nouvelles actualités du site
+[lemonde.fr](http://www.lemonde.fr). If fonctionne sous Gnome et sans doute la
+plupart des autres gestionnaires de fenêtre Linux.
