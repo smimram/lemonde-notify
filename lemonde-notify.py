@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
 import feedparser
 import webbrowser
 import gi
@@ -22,12 +23,12 @@ class App():
 
     def check(self):
         try:
-            feed = feedparser.parse(url)
+            posts = feedparser.parse(url).entries
         except Exception as e:
             sys.stderr.write("Error: " + str(e) + "\n")
-            feed = []
-        for post in feed.entries:
-            if id == self.lastid:
+            posts = []
+        for post in posts:
+            if post.id == self.lastid:
                 break
             self.notification = Notify.Notification.new("Le Monde", post.title, "dialog-information")
             self.notification.add_action("action_click", "Voir l'article...", self.notification_cb, post.link)
@@ -36,7 +37,7 @@ class App():
             except Exception as e: # the show can timeout
                 sys.stderr.write("Error: " + str(e) + "\n")
         try:
-            self.lastid = feed.entries[0].id
+            self.lastid = posts[0].id
         except Exception as e:
             self.lastid = ""
         GLib.timeout_add_seconds(60*5, self.check)
