@@ -31,7 +31,7 @@ class App():
             if post.id == self.lastid:
                 break
             self.notification = Notify.Notification.new("Le Monde", post.title, "dialog-information")
-            self.notification.add_action("action_click", "Voir l'article...", self.notification_cb, post.link)
+            self.notification.add_action("default", "default", self.notification_cb, post.link)
             try:
                 self.notification.show()
             except Exception as e: # the show can timeout
